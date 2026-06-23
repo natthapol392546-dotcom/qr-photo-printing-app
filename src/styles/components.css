@@ -83,11 +83,17 @@
 .editor-toolbar {
   display: flex;
   align-items: center;
-  gap: var(--sp-4);
+  justify-content: space-between;
   padding: var(--sp-3) var(--sp-5);
   background: rgba(255, 255, 255, 0.6);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   flex-shrink: 0;
+}
+
+.editor-tool-group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
 }
 
 /* Zoom slider */

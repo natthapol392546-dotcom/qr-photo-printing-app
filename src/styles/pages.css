@@ -14,11 +14,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 10, 26, 0.92) 0%,
-    rgba(10, 10, 26, 0) 100%
-  );
+  background: var(--surface-color);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -261,20 +257,6 @@
   gap: var(--sp-3);
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 4%,
-    black 96%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 4%,
-    black 96%,
-    transparent 100%
-  );
 }
 
 .template-bar::-webkit-scrollbar {
