@@ -299,8 +299,8 @@ export function render() {
       /* ===== Combining Editor Page ===== */
       .combining-editor-page {
         min-height: 100vh;
-        background: #0d0d14;
-        color: #e0e0e0;
+        background: var(--bg-color);
+        color: var(--text-color);
         display: flex;
         flex-direction: column;
         font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -312,9 +312,8 @@ export function render() {
         align-items: center;
         gap: 12px;
         padding: 16px 20px;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-        background: rgba(13,13,20,0.95);
-        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        background: var(--surface-color);
         position: sticky;
         top: 0;
         z-index: 10;
@@ -323,7 +322,7 @@ export function render() {
       .ce-back-btn {
         background: none;
         border: none;
-        color: #00d4ff;
+        color: var(--primary-color);
         font-size: 22px;
         cursor: pointer;
         padding: 4px 8px;
@@ -333,12 +332,12 @@ export function render() {
         display: flex;
         align-items: center;
       }
-      .ce-back-btn:hover { background: rgba(0,212,255,0.1); }
+      .ce-back-btn:hover { background: rgba(0,0,0,0.05); }
 
       .ce-header-title {
         font-size: 18px;
         font-weight: 600;
-        color: #ffffff;
+        color: var(--text-color);
         margin: 0;
       }
 
@@ -357,10 +356,10 @@ export function render() {
         width: 100%;
         max-width: 360px;
         aspect-ratio: 2 / 3;
-        background: #12121c;
+        background: var(--bg-color);
         border-radius: 12px;
         overflow: hidden;
-        border: 2px solid rgba(255,255,255,0.06);
+        border: 2px solid rgba(0,0,0,0.05);
       }
 
       /* Wrapper per cell — sized by CSS grid */
@@ -387,12 +386,12 @@ export function render() {
 
       /* Empty cell */
       .grid-cell--empty {
-        background: #1a1a2e;
-        border: 2px dashed rgba(108,99,255,0.3);
+        background: var(--surface-color);
+        border: 2px dashed var(--primary-color);
       }
       .grid-cell--empty:hover {
-        background: #1f1f38;
-        border-color: rgba(108,99,255,0.6);
+        background: var(--bg-color);
+        border-color: var(--secondary-color);
       }
 
       .grid-cell-placeholder {
@@ -403,7 +402,7 @@ export function render() {
 
       .grid-cell-label {
         font-size: 11px;
-        color: #6c63ff;
+        color: var(--primary-color);
         font-weight: 500;
       }
 
@@ -447,9 +446,8 @@ export function render() {
         gap: 12px;
         padding: 16px 20px;
         padding-bottom: max(16px, env(safe-area-inset-bottom));
-        border-top: 1px solid rgba(255,255,255,0.08);
-        background: rgba(13,13,20,0.95);
-        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(0,0,0,0.05);
+        background: var(--surface-color);
         position: sticky;
         bottom: 0;
       }
@@ -469,16 +467,16 @@ export function render() {
       }
 
       .ce-btn--secondary {
-        background: #1a1a2e;
-        color: #e0e0e0;
-        border: 1px solid rgba(255,255,255,0.1);
+        background: var(--bg-color);
+        color: var(--text-color);
+        border: 1px solid rgba(0,0,0,0.1);
       }
       .ce-btn--secondary:hover {
-        background: #222240;
+        background: rgba(0,0,0,0.05);
       }
 
       .ce-btn--primary {
-        background: linear-gradient(135deg, #6c63ff, #00d4ff);
+        background: var(--primary-color);
         color: #ffffff;
       }
       .ce-btn--primary:disabled {

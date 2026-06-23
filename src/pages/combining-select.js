@@ -118,8 +118,8 @@ export function render() {
       /* ===== Combining Select Page ===== */
       .combining-select-page {
         min-height: 100vh;
-        background: #0d0d14;
-        color: #e0e0e0;
+        background: var(--bg-color);
+        color: var(--text-color);
         display: flex;
         flex-direction: column;
         font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -131,9 +131,8 @@ export function render() {
         align-items: center;
         gap: 12px;
         padding: 16px 20px;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-        background: rgba(13,13,20,0.95);
-        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        background: var(--surface-color);
         position: sticky;
         top: 0;
         z-index: 10;
@@ -142,7 +141,7 @@ export function render() {
       .cs-back-btn {
         background: none;
         border: none;
-        color: #00d4ff;
+        color: var(--primary-color);
         font-size: 22px;
         cursor: pointer;
         padding: 4px 8px;
@@ -152,12 +151,12 @@ export function render() {
         display: flex;
         align-items: center;
       }
-      .cs-back-btn:hover { background: rgba(0,212,255,0.1); }
+      .cs-back-btn:hover { background: rgba(0,0,0,0.05); }
 
       .cs-header-title {
         font-size: 18px;
         font-weight: 600;
-        color: #ffffff;
+        color: var(--text-color);
         margin: 0;
       }
 
@@ -188,8 +187,8 @@ export function render() {
 
       /* Individual layout card */
       .layout-card {
-        background: #1a1a2e;
-        border: 2px solid rgba(255,255,255,0.06);
+        background: var(--surface-color);
+        border: 2px solid transparent;
         border-radius: 14px;
         padding: 14px;
         display: flex;
@@ -205,11 +204,11 @@ export function render() {
         transform: translateY(-2px);
       }
       .layout-card:focus-visible {
-        outline: 2px solid #6c63ff;
+        outline: 2px solid var(--primary-color);
         outline-offset: 2px;
       }
       .layout-card.selected {
-        border-color: #00d4ff;
+        border-color: var(--primary-color);
         box-shadow: 0 0 18px rgba(0,212,255,0.25), inset 0 0 12px rgba(0,212,255,0.06);
       }
 
@@ -217,10 +216,10 @@ export function render() {
       .layout-preview {
         border-radius: 8px;
         overflow: hidden;
-        background: #12121c;
+        background: var(--bg-color);
       }
       .preview-cell {
-        background: #2a2a42;
+        background: var(--surface-color);
         border-radius: 4px;
         min-height: 0;
       }
@@ -228,13 +227,13 @@ export function render() {
       .layout-card-name {
         font-size: 13px;
         font-weight: 600;
-        color: #ffffff;
+        color: var(--text-color);
         text-align: center;
         line-height: 1.2;
       }
       .layout-card-count {
         font-size: 11px;
-        color: #6c63ff;
+        color: var(--primary-color);
         font-weight: 500;
       }
 
@@ -243,7 +242,7 @@ export function render() {
         padding: 16px 20px;
         padding-bottom: max(16px, env(safe-area-inset-bottom));
         border-top: 1px solid rgba(255,255,255,0.08);
-        background: rgba(13,13,20,0.95);
+        background: var(--surface-color);
         backdrop-filter: blur(10px);
         position: sticky;
         bottom: 0;
@@ -258,7 +257,7 @@ export function render() {
         font-weight: 600;
         cursor: pointer;
         transition: opacity 0.2s, transform 0.1s;
-        background: linear-gradient(135deg, #6c63ff, #00d4ff);
+        background: var(--primary-color);
         color: #ffffff;
       }
       .cs-next-btn:disabled {
