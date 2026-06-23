@@ -1,5 +1,6 @@
 // Global application state
 import { getFrameSVG } from './components/frame-templates.js';
+import { clearAppStateFromDB, saveAppStateToDB } from './db.js';
 export const appState = {
   // Current mode: 'photo-frame' or 'combining'
   mode: null,
@@ -26,6 +27,11 @@ export const appState = {
   printStatus: null       // null, 'loading', 'success', 'error'
 };
 
+// Helper to save current state and route
+export function saveState() {
+  saveAppStateToDB(appState, window.location.hash);
+}
+
 // Reset all state
 export function resetState() {
   appState.mode = null;
@@ -37,6 +43,7 @@ export function resetState() {
   appState.finalImage = null;
   appState.printCode = '';
   appState.printStatus = null;
+  clearAppStateFromDB();
 }
 
 // Reset only frame mode
@@ -45,12 +52,14 @@ export function resetFrameState() {
   appState.frameTransform = { x: 0, y: 0, scale: 1, rotation: 0 };
   appState.selectedFrame = 0;
   appState.finalImage = null;
+  saveState();
 }
 
 // Reset only combining mode
 export function resetCombiningState() {
   appState.images = {};
   appState.finalImage = null;
+  saveState();
 }
 
 // Generate final image from photo frame mode

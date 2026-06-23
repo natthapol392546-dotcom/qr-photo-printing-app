@@ -1,5 +1,6 @@
 // Main application entry point
-import { appState } from './state.js';
+import { appState, saveState } from './state.js';
+import { loadAppStateFromDB } from './db.js';
 
 // Page imports
 import { render as renderHome, init as initHome } from './pages/home.js';
@@ -34,6 +35,9 @@ function navigateTo(hash) {
   // Add exit animation
   app.classList.add('page-exit');
   
+  // Save current location if not home
+  saveState();
+  
   setTimeout(() => {
     // Render new page
     app.innerHTML = route.render();
@@ -61,8 +65,19 @@ window.addEventListener('hashchange', () => {
 });
 
 // Initial load
-document.addEventListener('DOMContentLoaded', () => {
-  navigateTo(window.location.hash || '');
+document.addEventListener('DOMContentLoaded', async () => {
+  const savedData = await loadAppStateFromDB();
+  if (savedData && savedData.state) {
+    Object.assign(appState, savedData.state);
+    const hash = savedData.hash || '#home';
+    if (window.location.hash !== hash) {
+      window.location.hash = hash;
+    } else {
+      navigateTo(hash);
+    }
+  } else {
+    navigateTo(window.location.hash || '#home');
+  }
 });
 
 // Delete the default Vite files we don't need

@@ -1,4 +1,4 @@
-import { appState } from '../state.js';
+import { appState, saveState } from '../state.js';
 import { gridTemplates } from '../components/grid-templates.js';
 
 /**
@@ -257,7 +257,7 @@ export function render() {
         font-weight: 600;
         cursor: pointer;
         transition: opacity 0.2s, transform 0.1s;
-        background: var(--primary-color);
+        background: #fd475d;
         color: #ffffff;
       }
       .cs-next-btn:disabled {
@@ -314,6 +314,7 @@ export function init() {
 
     const layoutId = card.getAttribute('data-layout-id');
     appState.selectedGrid = layoutId;
+    saveState();
 
     // Enable next button
     if (nextBtn) {

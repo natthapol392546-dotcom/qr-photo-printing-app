@@ -1,4 +1,4 @@
-import { appState } from '../state.js';
+import { appState, saveState } from '../state.js';
 import { gridTemplates } from '../components/grid-templates.js';
 import { openUploadDialog } from '../components/image-upload.js';
 import { openImageEditor } from '../components/image-editor.js';
@@ -467,16 +467,16 @@ export function render() {
       }
 
       .ce-btn--secondary {
-        background: var(--bg-color);
-        color: var(--text-color);
-        border: 1px solid rgba(0,0,0,0.1);
+        background: transparent;
+        color: #fd475d;
+        border: 2px solid #fd475d;
       }
       .ce-btn--secondary:hover {
-        background: rgba(0,0,0,0.05);
+        background: rgba(253, 71, 93, 0.1);
       }
 
       .ce-btn--primary {
-        background: var(--primary-color);
+        background: #fd475d;
         color: #ffffff;
       }
       .ce-btn--primary:disabled {
@@ -661,6 +661,7 @@ export function init() {
 
       const index = parseInt(btn.getAttribute('data-index') || '0', 10);
       appState.selectedFrame = index;
+      saveState();
 
       // Update frame layer overlay
       const frameLayer = document.getElementById('frame-layer');

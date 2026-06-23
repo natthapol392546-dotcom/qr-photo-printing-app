@@ -1,5 +1,5 @@
 // Photo Frame page – upload, position, frame, and submit
-import { appState } from '../state.js';
+import { appState, saveState } from '../state.js';
 import { frameTemplates, getFrameSVG } from '../components/frame-templates.js';
 import { openUploadDialog } from '../components/image-upload.js';
 
@@ -155,6 +155,8 @@ function refreshPreview() {
     const idx = parseInt(/** @type {HTMLElement} */ (el).dataset.index, 10);
     el.classList.toggle('active', idx === appState.selectedFrame);
   });
+  
+  saveState();
 }
 
 /** Set up pointer / touch / wheel events for drag & pinch-zoom on the image layer */
@@ -184,6 +186,7 @@ function setupImageInteraction() {
   });
 
   area.addEventListener('pointerup', () => {
+    if (isDragging) saveState();
     isDragging = false;
     area.style.cursor = '';
   });
@@ -202,6 +205,8 @@ function setupImageInteraction() {
       const delta = e.deltaY > 0 ? -0.05 : 0.05;
       t.scale = clamp(t.scale + delta, MIN_SCALE, MAX_SCALE);
       applyTransform(layer, t);
+      // save after a short debounce or immediately
+      saveState();
     },
     { passive: false }
   );
@@ -224,6 +229,7 @@ function setupImageInteraction() {
   );
 
   area.addEventListener('touchend', () => {
+    if (lastPinchDist > 0) saveState();
     lastPinchDist = 0;
   });
 }
