@@ -123,17 +123,8 @@ export function getFrameSVG(templateIndex, width, height) {
       </svg>`;
 
     case 'nature':
-      const bw_nature = width * 0.13;
-      const bh_nature = height * 0.13;
-      const uid_nature = Math.random().toString(36).substr(2, 9);
       return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-        <defs>
-          <mask id="hole-${id}-${uid_nature}">
-            <rect width="${width}" height="${height}" fill="white" />
-            <rect x="${bw_nature}" y="${bh_nature}" width="${width - (bw_nature * 2)}" height="${height - (bh_nature * 2)}" fill="black" />
-          </mask>
-        </defs>
-        <image href="/frames/nature.png" width="${width}" height="${height}" preserveAspectRatio="none" mask="url(#hole-${id}-${uid_nature})" />
+        <image href="/frames/nature.png" width="${width}" height="${height}" preserveAspectRatio="none" />
       </svg>`;
 
     case 'classic-white':
