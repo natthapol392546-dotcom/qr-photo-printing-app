@@ -1,0 +1,616 @@
+/* ============================================================
+   COMPONENTS.CSS — Reusable Component Styles
+   Photo Print Kiosk · Dark Premium Theme
+   ============================================================ */
+
+/* ============================================================
+   1. IMAGE EDITOR OVERLAY
+   ============================================================ */
+.image-editor-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background: rgba(6, 6, 18, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation: fadeIn var(--t-normal) var(--ease-out) both;
+}
+
+/* Header inside editor */
+.image-editor-overlay .editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-4);
+  flex-shrink: 0;
+}
+
+.image-editor-overlay .editor-header .editor-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* — Canvas Container — */
+.editor-canvas-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  overflow: hidden;
+  touch-action: none;         /* prevent browser gestures */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.editor-canvas-container .canvas-frame {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 2 / 3;        /* 4×6" */
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 0 0 1px var(--glass-border);
+}
+
+.editor-canvas-container .canvas-frame img,
+.editor-canvas-container .canvas-frame canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* — Editor Toolbar (bottom controls) — */
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-border);
+  flex-shrink: 0;
+}
+
+/* Zoom slider */
+.editor-toolbar .zoom-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.10);
+  outline: none;
+  cursor: pointer;
+}
+
+.editor-toolbar .zoom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.35);
+  cursor: grab;
+  transition: transform var(--t-fast) var(--ease-spring);
+}
+
+.editor-toolbar .zoom-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.editor-toolbar .zoom-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.35);
+  cursor: grab;
+}
+
+/* Toolbar buttons */
+.editor-toolbar .tool-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background var(--t-fast) ease,
+    transform  var(--t-fast) var(--ease-spring),
+    color      var(--t-fast) ease;
+}
+
+.editor-toolbar .tool-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: scale(1.08);
+}
+
+.editor-toolbar .tool-btn:active {
+  transform: scale(0.94);
+}
+
+.editor-toolbar .tool-btn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(0, 212, 255, 0.08);
+}
+
+/* — Editor Actions (Confirm / Cancel) — */
+.editor-actions {
+  display: flex;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  padding-bottom: calc(var(--sp-4) + env(safe-area-inset-bottom, 0px));
+  flex-shrink: 0;
+}
+
+.editor-actions .btn {
+  flex: 1;
+}
+
+/* ============================================================
+   2. FRAME OVERLAY
+   ============================================================ */
+.frame-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.frame-overlay img,
+.frame-overlay svg {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+/* ============================================================
+   3. UPLOAD MODAL (Bottom Sheet)
+   ============================================================ */
+.upload-modal {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  z-index: 1100;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: rgba(22, 22, 42, 0.96);
+  border: 1px solid var(--glass-border);
+  border-bottom: none;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  padding: var(--sp-2) var(--sp-4) calc(var(--sp-6) + env(safe-area-inset-bottom, 0px));
+  animation: sheetUp var(--t-normal) var(--ease-out) both;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.50);
+}
+
+@keyframes sheetUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Drag handle indicator */
+.upload-modal .sheet-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: var(--sp-2) auto var(--sp-4);
+}
+
+.upload-modal .sheet-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: var(--sp-4);
+  padding: 0 var(--sp-1);
+}
+
+/* Option rows */
+.upload-option {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    background var(--t-fast) ease,
+    transform  var(--t-fast) var(--ease-spring);
+}
+
+.upload-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.upload-option:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.upload-option .option-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+/* Icon colour variants */
+.upload-option .option-icon.icon-camera {
+  background: rgba(108, 99, 255, 0.14);
+  color: var(--primary-light);
+}
+
+.upload-option .option-icon.icon-gallery {
+  background: rgba(0, 212, 255, 0.12);
+  color: var(--accent);
+}
+
+.upload-option .option-icon.icon-file {
+  background: rgba(0, 230, 118, 0.12);
+  color: var(--success);
+}
+
+.upload-option .option-text .option-title {
+  font-size: 0.938rem;
+  font-weight: 600;
+}
+
+.upload-option .option-text .option-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* ============================================================
+   4. MODAL BACKDROP
+   ============================================================ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  background: rgba(6, 6, 18, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fadeIn var(--t-fast) ease both;
+  cursor: pointer;
+}
+
+/* ============================================================
+   5. TOAST NOTIFICATION
+   ============================================================ */
+.toast-notification {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - var(--sp-8));
+  max-width: 400px;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  animation: toastIn var(--t-normal) var(--ease-out) both;
+  box-shadow: var(--shadow-lg);
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100%);
+  }
+}
+
+.toast-notification.toast-exit {
+  animation: toastOut var(--t-normal) var(--ease-out) both;
+}
+
+/* Variants */
+.toast-notification.toast-success {
+  background: linear-gradient(135deg, rgba(0, 230, 118, 0.16), rgba(0, 230, 118, 0.06));
+  border: 1px solid rgba(0, 230, 118, 0.25);
+  border-top: none;
+  color: var(--success);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.toast-notification.toast-error {
+  background: linear-gradient(135deg, rgba(255, 82, 82, 0.16), rgba(255, 82, 82, 0.06));
+  border: 1px solid rgba(255, 82, 82, 0.25);
+  border-top: none;
+  color: var(--error);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.toast-notification.toast-info {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.14), rgba(0, 212, 255, 0.04));
+  border: 1px solid rgba(0, 212, 255, 0.22);
+  border-top: none;
+  color: var(--accent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.toast-notification .toast-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.toast-notification .toast-message {
+  flex: 1;
+}
+
+.toast-notification .toast-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity var(--t-fast) ease;
+  flex-shrink: 0;
+}
+
+.toast-notification .toast-close:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   6. IMAGE SLOT (Combining Editor)
+   ============================================================ */
+.image-slot {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.image-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Edit / delete hover overlay */
+.image-slot .slot-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  background: rgba(6, 6, 18, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity var(--t-normal) ease;
+}
+
+.image-slot:hover .slot-overlay {
+  opacity: 1;
+}
+
+/* Touch devices: tap to reveal */
+@media (hover: none) {
+  .image-slot .slot-overlay {
+    opacity: 0;
+  }
+  .image-slot.show-overlay .slot-overlay {
+    opacity: 1;
+  }
+}
+
+.image-slot .slot-overlay .slot-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    transform var(--t-fast) var(--ease-spring),
+    background var(--t-fast) ease;
+}
+
+.image-slot .slot-overlay .slot-btn-edit {
+  background: rgba(108, 99, 255, 0.80);
+  color: #fff;
+}
+
+.image-slot .slot-overlay .slot-btn-edit:hover {
+  background: var(--primary);
+  transform: scale(1.12);
+}
+
+.image-slot .slot-overlay .slot-btn-delete {
+  background: rgba(255, 82, 82, 0.80);
+  color: #fff;
+}
+
+.image-slot .slot-overlay .slot-btn-delete:hover {
+  background: var(--error);
+  transform: scale(1.12);
+}
+
+/* ============================================================
+   7. CONFIRMATION DIALOG
+   ============================================================ */
+.confirm-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1200;
+  width: calc(100% - var(--sp-10));
+  max-width: 340px;
+  padding: var(--sp-6);
+  border-radius: var(--radius-xl);
+  background: rgba(22, 22, 42, 0.97);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  animation: scaleIn var(--t-normal) var(--ease-spring) both;
+}
+
+.confirm-dialog .dialog-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--sp-3);
+}
+
+.confirm-dialog .dialog-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: var(--sp-2);
+}
+
+.confirm-dialog .dialog-message {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: var(--sp-6);
+}
+
+.confirm-dialog .dialog-actions {
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.confirm-dialog .dialog-actions .btn {
+  flex: 1;
+}
+
+/* ============================================================
+   8. PROGRESS BAR
+   ============================================================ */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.progress-bar .progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width var(--t-normal) var(--ease-out);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.30);
+}
+
+/* Indeterminate */
+.progress-bar.indeterminate .progress-fill {
+  width: 40% !important;
+  animation: progressSlide 1.4s ease-in-out infinite;
+}
+
+@keyframes progressSlide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+/* ============================================================
+   9. BADGE / CHIP
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge-primary {
+  background: rgba(108, 99, 255, 0.16);
+  color: var(--primary-light);
+}
+
+.badge-accent {
+  background: rgba(0, 212, 255, 0.12);
+  color: var(--accent);
+}
+
+.badge-success {
+  background: rgba(0, 230, 118, 0.12);
+  color: var(--success);
+}
+
+/* ============================================================
+   10. SKELETON LOADER
+   ============================================================ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
