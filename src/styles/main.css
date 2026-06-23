@@ -99,7 +99,7 @@ body {
   color: var(--text-primary);
   background: linear-gradient(168deg, var(--bg-deep) 0%, var(--bg-surface) 100%);
   background-attachment: fixed;
-  min-height: 100vh;
+  min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -145,7 +145,7 @@ ul, ol {
   position: relative;
   max-width: 430px;
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -508,6 +508,15 @@ ul, ol {
   backdrop-filter: var(--glass-blur);
   color: var(--text-secondary);
   font-size: 0.875rem;
+}
+
+.action-bar {
+  display: flex;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  padding-bottom: max(32px, env(safe-area-inset-bottom));
+  background: var(--surface-color);
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 .mode-card {

@@ -298,7 +298,7 @@ export function render() {
     <style>
       /* ===== Combining Editor Page ===== */
       .combining-editor-page {
-        min-height: 100vh;
+        min-height: 100dvh;
         background: var(--bg-color);
         color: var(--text-color);
         display: flex;
@@ -445,7 +445,7 @@ export function render() {
         display: flex;
         gap: 12px;
         padding: 16px 20px;
-        padding-bottom: max(16px, env(safe-area-inset-bottom));
+        padding-bottom: max(32px, env(safe-area-inset-bottom));
         border-top: 1px solid rgba(0,0,0,0.05);
         background: var(--surface-color);
         position: sticky;
