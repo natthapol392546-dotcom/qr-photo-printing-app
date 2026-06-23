@@ -1,4 +1,5 @@
 // Global application state
+import { getFrameSVG } from './components/frame-templates.js';
 export const appState = {
   // Current mode: 'photo-frame' or 'combining'
   mode: null,
@@ -84,15 +85,57 @@ export function generateFrameImage() {
         
         ctx.restore();
         
-        appState.finalImage = canvas.toDataURL('image/jpeg', 0.9);
-        resolve(appState.finalImage);
+        // Draw Frame SVG overlay
+        const currentFrame = appState.selectedFrame || 0;
+        if (currentFrame !== 0) {
+          const svgStr = getFrameSVG(currentFrame, canvas.width, canvas.height);
+          const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const frameOverlay = new Image();
+          frameOverlay.onload = () => {
+            ctx.drawImage(frameOverlay, 0, 0);
+            URL.revokeObjectURL(url);
+            appState.finalImage = canvas.toDataURL('image/jpeg', 0.9);
+            resolve(appState.finalImage);
+          };
+          frameOverlay.onerror = () => {
+            URL.revokeObjectURL(url);
+            appState.finalImage = canvas.toDataURL('image/jpeg', 0.9);
+            resolve(appState.finalImage);
+          };
+          frameOverlay.src = url;
+        } else {
+          appState.finalImage = canvas.toDataURL('image/jpeg', 0.9);
+          resolve(appState.finalImage);
+        }
       };
       img.src = appState.frameImage;
     } else {
       ctx.fillStyle = '#1a1a2e';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      appState.finalImage = canvas.toDataURL('image/jpeg', 0.9);
-      resolve(appState.finalImage);
+      
+      const currentFrame = appState.selectedFrame || 0;
+      if (currentFrame !== 0) {
+        const svgStr = getFrameSVG(currentFrame, canvas.width, canvas.height);
+        const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const frameOverlay = new Image();
+        frameOverlay.onload = () => {
+          ctx.drawImage(frameOverlay, 0, 0);
+          URL.revokeObjectURL(url);
+          appState.finalImage = canvas.toDataURL('image/jpeg', 0.9);
+          resolve(appState.finalImage);
+        };
+        frameOverlay.onerror = () => {
+          URL.revokeObjectURL(url);
+          appState.finalImage = canvas.toDataURL('image/jpeg', 0.9);
+          resolve(appState.finalImage);
+        };
+        frameOverlay.src = url;
+      } else {
+        appState.finalImage = canvas.toDataURL('image/jpeg', 0.9);
+        resolve(appState.finalImage);
+      }
     }
   });
 }
