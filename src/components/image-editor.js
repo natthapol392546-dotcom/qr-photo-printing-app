@@ -32,29 +32,29 @@ export function openImageEditor(imageDataUrl, options = {}) {
         </div>
         <div class="editor-toolbar">
           <div class="editor-tool-group">
-            <button class="editor-tool-btn" id="editor-zoom-out" title="Zoom Out">
+            <button class="tool-btn" id="editor-zoom-out" title="Zoom Out">
               <span>−</span>
             </button>
             <div class="zoom-indicator" id="zoom-indicator">100%</div>
-            <button class="editor-tool-btn" id="editor-zoom-in" title="Zoom In">
+            <button class="tool-btn" id="editor-zoom-in" title="Zoom In">
               <span>+</span>
             </button>
           </div>
           <div class="editor-tool-group">
-            <button class="editor-tool-btn" id="editor-rotate" title="Rotate 90°">
+            <button class="tool-btn" id="editor-rotate" title="Rotate 90°">
               <span>↻</span>
             </button>
-            <button class="editor-tool-btn" id="editor-reupload" title="Change Photo">
+            <button class="tool-btn" id="editor-reupload" title="Change Photo">
               <span>📷</span>
             </button>
-            <button class="editor-tool-btn" id="editor-reset" title="Reset">
+            <button class="tool-btn" id="editor-reset" title="Reset">
               <span>↺</span>
             </button>
           </div>
         </div>
         <div class="editor-actions">
-          <button class="btn-secondary" id="editor-action-cancel">Cancel</button>
-          <button class="btn-primary" id="editor-action-confirm">Confirm</button>
+          <button class="btn btn-secondary" id="editor-action-cancel">Cancel</button>
+          <button class="btn btn-primary" id="editor-action-confirm">Confirm</button>
         </div>
       </div>
     `;
