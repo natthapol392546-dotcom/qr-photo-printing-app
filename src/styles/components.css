@@ -12,10 +12,11 @@
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  background: rgba(6, 6, 18, 0.94);
+  background: rgba(245, 239, 230, 0.96); /* Light tone */
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   animation: fadeIn var(--t-normal) var(--ease-out) both;
+  color: var(--text-primary);
 }
 
 /* Header inside editor */
@@ -73,8 +74,8 @@
   align-items: center;
   gap: var(--sp-4);
   padding: var(--sp-3) var(--sp-5);
-  background: var(--glass-bg);
-  border-top: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.6);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   flex-shrink: 0;
 }
 
@@ -123,8 +124,8 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   font-size: 1.15rem;
   color: var(--text-primary);
   cursor: pointer;
@@ -155,8 +156,10 @@
   display: flex;
   gap: var(--sp-3);
   padding: var(--sp-4);
-  padding-bottom: calc(var(--sp-4) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: max(32px, env(safe-area-inset-bottom));
   flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .editor-actions .btn {
