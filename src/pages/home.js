@@ -1,5 +1,7 @@
 // Home page – main menu with mode selection cards
 
+import { appState } from '../state.js';
+
 export function render() {
   return `
     <div class="page home-page fade-in">
@@ -49,6 +51,7 @@ export function init() {
     photoFrameCard.addEventListener('click', () => {
       photoFrameCard.classList.add('card-pressed');
       setTimeout(() => {
+        appState.mode = 'photo-frame';
         window.location.hash = '#photo-frame';
       }, 150);
     });
@@ -58,6 +61,7 @@ export function init() {
     combiningCard.addEventListener('click', () => {
       combiningCard.classList.add('card-pressed');
       setTimeout(() => {
+        appState.mode = 'combining';
         window.location.hash = '#combining-select';
       }, 150);
     });

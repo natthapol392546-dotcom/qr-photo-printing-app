@@ -1,5 +1,5 @@
 // Print page – preview final image, enter print code, submit
-import { appState } from '../state.js';
+import { appState, resetState } from '../state.js';
 
 /* ── Render ── */
 export function render() {
@@ -9,7 +9,7 @@ export function render() {
     <div class="page print-page fade-in">
       <!-- Header -->
       <header class="page-header">
-        <button class="btn-back" id="btn-back" aria-label="Go back">←</button>
+        <button class="back-btn" id="btn-back" aria-label="Go back">←</button>
         <h1 class="page-title">Print Your Photo</h1>
         <div class="header-spacer"></div>
       </header>
@@ -117,14 +117,21 @@ export function init() {
     printForm?.classList.add('hidden');
     successPanel?.classList.remove('hidden');
 
+    // Save mock stats
+    const stats = JSON.parse(localStorage.getItem('printStats') || '{"totalPrints": 0, "templates": {}}');
+    stats.totalPrints++;
+    const usedTemplate = appState.mode === 'photo-frame' 
+      ? `frame-${appState.selectedFrame}` 
+      : `grid-${appState.selectedGrid}`;
+    stats.templates[usedTemplate] = (stats.templates[usedTemplate] || 0) + 1;
+    localStorage.setItem('printStats', JSON.stringify(stats));
+
     showToast('Print job submitted successfully!');
   });
 
   /* Print another */
   printAnotherBtn?.addEventListener('click', () => {
-    appState.printCode = '';
-    appState.printStatus = null;
-    appState.finalImage = null;
+    resetState();
     window.location.hash = '#home';
   });
 

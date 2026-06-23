@@ -8,6 +8,21 @@ export const frameTemplates = [
     thumbnail: '⬜'
   },
   {
+    id: 'blue-stripes',
+    name: 'Blue Stripes',
+    thumbnail: '🟦'
+  },
+  {
+    id: 'pink-wavy',
+    name: 'Pink Wavy',
+    thumbnail: '🎀'
+  },
+  {
+    id: 'orange-stitch',
+    name: 'Orange Stitch',
+    thumbnail: '🟧'
+  },
+  {
     id: 'classic-white',
     name: 'Classic',
     thumbnail: '🤍'
@@ -23,24 +38,9 @@ export const frameTemplates = [
     thumbnail: '✨'
   },
   {
-    id: 'neon-glow',
-    name: 'Neon',
-    thumbnail: '💜'
-  },
-  {
     id: 'film-strip',
     name: 'Film',
     thumbnail: '🎬'
-  },
-  {
-    id: 'rounded',
-    name: 'Rounded',
-    thumbnail: '🔲'
-  },
-  {
-    id: 'gradient',
-    name: 'Gradient',
-    thumbnail: '🌈'
   }
 ];
 
@@ -55,6 +55,67 @@ export function getFrameSVG(templateIndex, width, height) {
   switch (id) {
     case 'none':
       return '';
+
+    case 'blue-stripes':
+      const bw1 = width * 0.13;
+      const bh1 = height * 0.13;
+      const uid1 = Math.random().toString(36).substr(2, 9);
+      return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+        <defs>
+          <mask id="hole-${id}-${uid1}">
+            <rect width="${width}" height="${height}" fill="white" />
+            <rect x="${bw1}" y="${bh1}" width="${width - (bw1 * 2)}" height="${height - (bh1 * 2)}" fill="black" />
+          </mask>
+          <pattern id="pat-blue-${uid1}" width="40" height="40" patternUnits="userSpaceOnUse">
+            <rect width="40" height="40" fill="#FDF8EE" />
+            <path d="M0,0 L40,40 M40,0 L0,40" stroke="#E5DCCB" stroke-width="1" />
+            <rect x="15" y="0" width="10" height="40" fill="#7898C4" />
+          </pattern>
+        </defs>
+        <rect width="${width}" height="${height}" fill="url(#pat-blue-${uid1})" mask="url(#hole-${id}-${uid1})" />
+      </svg>`;
+
+    case 'pink-wavy':
+      const bw2 = width * 0.13;
+      const bh2 = height * 0.13;
+      const uid2 = Math.random().toString(36).substr(2, 9);
+      return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+        <defs>
+          <mask id="hole-${id}-${uid2}">
+            <rect width="${width}" height="${height}" fill="white" />
+            <rect x="${bw2}" y="${bh2}" width="${width - (bw2 * 2)}" height="${height - (bh2 * 2)}" fill="black" />
+          </mask>
+          <pattern id="pat-pink-${uid2}" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="rotate(5)">
+            <rect width="60" height="60" fill="#FFFFFF" />
+            <rect x="0" y="0" width="30" height="30" fill="#F8BBD0" />
+            <rect x="30" y="30" width="30" height="30" fill="#F8BBD0" />
+          </pattern>
+        </defs>
+        <rect width="${width}" height="${height}" fill="url(#pat-pink-${uid2})" mask="url(#hole-${id}-${uid2})" />
+      </svg>`;
+
+    case 'orange-stitch':
+      const bw3 = width * 0.13;
+      const bh3 = height * 0.13;
+      const uid3 = Math.random().toString(36).substr(2, 9);
+      return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+        <defs>
+          <mask id="hole-${id}-${uid3}">
+            <rect width="${width}" height="${height}" fill="white" />
+            <rect x="${bw3}" y="${bh3}" width="${width - (bw3 * 2)}" height="${height - (bh3 * 2)}" fill="black" />
+          </mask>
+          <pattern id="pat-orange-${uid3}" width="60" height="60" patternUnits="userSpaceOnUse">
+            <rect width="60" height="60" fill="#FDF8EE" />
+            <rect x="0" y="0" width="30" height="30" fill="#F27D42" />
+            <rect x="3" y="3" width="24" height="24" fill="none" stroke="#FDF8EE" stroke-width="1.5" stroke-dasharray="4,2" />
+            <rect x="30" y="30" width="30" height="30" fill="#F27D42" />
+            <rect x="33" y="33" width="24" height="24" fill="none" stroke="#FDF8EE" stroke-width="1.5" stroke-dasharray="4,2" />
+            <rect x="33" y="3" width="24" height="24" fill="none" stroke="#F27D42" stroke-width="1.5" stroke-dasharray="4,2" />
+            <rect x="3" y="33" width="24" height="24" fill="none" stroke="#F27D42" stroke-width="1.5" stroke-dasharray="4,2" />
+          </pattern>
+        </defs>
+        <rect width="${width}" height="${height}" fill="url(#pat-orange-${uid3})" mask="url(#hole-${id}-${uid3})" />
+      </svg>`;
 
     case 'classic-white':
       return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">

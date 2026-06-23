@@ -2,6 +2,7 @@ import { appState } from '../state.js';
 import { gridTemplates } from '../components/grid-templates.js';
 import { openUploadDialog } from '../components/image-upload.js';
 import { openImageEditor } from '../components/image-editor.js';
+import { frameTemplates, getFrameSVG } from '../components/frame-templates.js';
 
 /**
  * Grid layout definitions used by the editor.
@@ -142,18 +143,39 @@ function composeFinalImage() {
         drawImageCover(ctx, img, rect.x, rect.y, rect.w, rect.h);
         loadedCount++;
         if (loadedCount === totalCells) {
-          resolve(canvas.toDataURL('image/png'));
+          drawFrameAndResolve(ctx, canvas, resolve);
         }
       };
       img.onerror = () => {
         loadedCount++;
         if (loadedCount === totalCells) {
-          resolve(canvas.toDataURL('image/png'));
+          drawFrameAndResolve(ctx, canvas, resolve);
         }
       };
       img.src = appState.images[index];
     });
   });
+}
+
+function drawFrameAndResolve(ctx, canvas, resolve) {
+  const currentFrame = appState.selectedFrame || 0;
+  if (currentFrame === 0) {
+    // Basic or no frame, you can skip or just render it
+  }
+  const svgStr = getFrameSVG(currentFrame, canvas.width, canvas.height);
+  const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const frameImg = new Image();
+  frameImg.onload = () => {
+    ctx.drawImage(frameImg, 0, 0);
+    URL.revokeObjectURL(url);
+    resolve(canvas.toDataURL('image/png'));
+  };
+  frameImg.onerror = () => {
+    URL.revokeObjectURL(url);
+    resolve(canvas.toDataURL('image/png'));
+  };
+  frameImg.src = url;
 }
 
 /**
@@ -251,6 +273,23 @@ export function render() {
         ${cellContent}
       </div>`;
     })
+    .join('');
+
+  const templates = frameTemplates || [];
+  const currentFrame = appState.selectedFrame ?? 0;
+  const templateThumbs = templates
+    .map(
+      (tpl, i) => `
+      <button 
+        class="template-thumb ${i === currentFrame ? 'active' : ''}" 
+        data-index="${i}" 
+        aria-label="${tpl.name}"
+      >
+        <div class="thumb-preview">${getFrameSVG(i, 48, 72)}</div>
+        <span class="thumb-label">${tpl.name}</span>
+      </button>
+    `
+    )
     .join('');
 
   const allFilled = allCellsFilled();
@@ -461,9 +500,16 @@ export function render() {
       <div class="ce-grid-container">
         <div class="ce-grid"
              style="grid-template-columns: ${layout.gridTemplateColumns};
-                    grid-template-rows: ${layout.gridTemplateRows};">
+                    grid-template-rows: ${layout.gridTemplateRows}; position: relative;">
           ${cellsHTML}
+          <div class="preview-frame-layer" id="frame-layer" style="position: absolute; inset: 0; pointer-events: none;">
+            ${getFrameSVG(currentFrame, 360, 540)}
+          </div>
         </div>
+      </div>
+
+      <div class="template-bar" id="template-bar" style="margin-top: 16px;">
+        ${templateThumbs}
       </div>
 
       <div class="ce-action-bar">
@@ -605,4 +651,25 @@ export function init() {
       }
     });
   }
+
+  // Template bar selection
+  const templateThumbs = document.querySelectorAll('.template-thumb');
+  templateThumbs.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Remove active from all
+      templateThumbs.forEach((b) => b.classList.remove('active'));
+      // Add active to clicked
+      btn.classList.add('active');
+
+      const index = parseInt(btn.getAttribute('data-index') || '0', 10);
+      appState.selectedFrame = index;
+
+      // Update frame layer overlay
+      const frameLayer = document.getElementById('frame-layer');
+      if (frameLayer) {
+        // Assume grid display size approx 360x540
+        frameLayer.innerHTML = getFrameSVG(index, 360, 540);
+      }
+    });
+  });
 }

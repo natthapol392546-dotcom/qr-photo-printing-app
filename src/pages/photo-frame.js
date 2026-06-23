@@ -34,34 +34,36 @@ export function render() {
     <div class="page photo-frame-page fade-in">
       <!-- Header -->
       <header class="page-header">
-        <button class="btn-back" id="btn-back" aria-label="Go back">←</button>
+        <button class="back-btn" id="btn-back" aria-label="Go back">←</button>
         <h1 class="page-title">Photo Frame</h1>
         <div class="header-spacer"></div>
       </header>
 
       <!-- Preview -->
-      <div class="frame-preview-area" id="preview-area">
-        <div class="preview-image-layer" id="image-layer"
-             style="transform: translate(${t.x}px, ${t.y}px) scale(${t.scale});">
+      <div class="preview-area">
+        <div class="preview-wrapper" id="preview-area" style="position: relative; overflow: hidden; touch-action: none;">
+          <div class="preview-image-layer" id="image-layer"
+               style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transform: translate(${t.x}px, ${t.y}px) scale(${t.scale});">
+            ${
+              hasImage
+                ? `<img src="${appState.frameImage}" class="preview-photo" draggable="false" alt="Your photo" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`
+                : ''
+            }
+          </div>
+
+          <div class="preview-frame-layer" id="frame-layer" style="position: absolute; inset: 0; pointer-events: none;">
+            ${getFrameSVG(currentFrame, 400, 600)}
+          </div>
+
           ${
-            hasImage
-              ? `<img src="${appState.frameImage}" class="preview-photo" draggable="false" alt="Your photo" />`
+            !hasImage
+              ? `<button class="camera-placeholder" id="btn-upload-placeholder" aria-label="Upload a photo" style="background: none; border: none; width: 100%; height: 100%; cursor: pointer;">
+                  <div class="camera-circle">📷</div>
+                  <span class="upload-text">Tap to upload photo</span>
+                </button>`
               : ''
           }
         </div>
-
-        <div class="preview-frame-layer" id="frame-layer">
-          ${getFrameSVG(currentFrame, 400, 600)}
-        </div>
-
-        ${
-          !hasImage
-            ? `<button class="upload-placeholder" id="btn-upload-placeholder" aria-label="Upload a photo">
-                <span class="upload-icon">📷</span>
-                <span class="upload-text">Tap to upload photo</span>
-              </button>`
-            : ''
-        }
       </div>
 
       <!-- Template bar -->
