@@ -13,6 +13,7 @@
   /* — Palette — */
   --bg-deep:        #F5EFE6;
   --bg-surface:     #E8DFCA;
+  --surface-color:  rgba(255, 255, 255, 0.95);
   --bg-card:        rgba(255, 255, 255, 0.4);
   --bg-card-hover:  rgba(255, 255, 255, 0.6);
   --bg-input:       rgba(255, 255, 255, 0.5);
