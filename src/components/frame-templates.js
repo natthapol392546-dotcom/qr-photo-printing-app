@@ -30,7 +30,7 @@ export const frameTemplates = [
     id: 'nature',
     name: 'Nature',
     thumbnail: '🌿',
-    layouts: ['single']
+    layouts: ['multi']
   },
   {
     id: 'classic-white',
