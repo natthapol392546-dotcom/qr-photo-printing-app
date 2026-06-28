@@ -314,8 +314,8 @@ export function render() {
         align-items: center;
         gap: 12px;
         padding: 16px 20px;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        background: var(--surface-color);
+        border-bottom: none;
+        background: transparent;
         position: sticky;
         top: 0;
         z-index: 10;
@@ -448,10 +448,8 @@ export function render() {
         gap: 12px;
         padding: 16px 20px;
         padding-bottom: max(32px, env(safe-area-inset-bottom));
-        border-top: 1px solid rgba(0,0,0,0.05);
-        background: var(--surface-color);
-        position: sticky;
-        bottom: 0;
+        border-top: none;
+        background: transparent;
       }
 
       .ce-btn {

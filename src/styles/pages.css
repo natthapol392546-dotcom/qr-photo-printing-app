@@ -14,9 +14,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--surface-color);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: transparent;
 }
 
 .page-header .back-btn {
@@ -551,36 +549,6 @@
 .print-page .print-info p {
   font-size: 0.85rem;
   color: var(--text-secondary);
-}
-
-/* ============================================================
-   7. ACTION BAR (Fixed Bottom)
-   ============================================================ */
-.action-bar {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 430px;
-  display: flex;
-  gap: var(--sp-3);
-  padding: var(--sp-4);
-  padding-bottom: calc(var(--sp-4) + env(safe-area-inset-bottom, 0px));
-  background: var(--surface-color);
-  border-top: 1px solid var(--border-subtle);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  z-index: 90;
-}
-
-.action-bar .btn {
-  flex: 1;
-}
-
-/* Add bottom padding to page content so action bar doesn't overlap */
-.has-action-bar {
-  padding-bottom: 88px;
 }
 
 /* ============================================================

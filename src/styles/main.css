@@ -516,8 +516,12 @@ ul, ol {
   gap: var(--sp-3);
   padding: var(--sp-4) var(--sp-5);
   padding-bottom: max(32px, env(safe-area-inset-bottom));
-  background: var(--surface-color);
-  border-top: 1px solid rgba(0,0,0,0.05);
+  background: transparent;
+  border-top: none;
+}
+
+.action-bar .btn {
+  flex: 1;
 }
 
 .mode-card {
