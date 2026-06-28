@@ -5,47 +5,56 @@ export const frameTemplates = [
   {
     id: 'none',
     name: 'None',
-    thumbnail: '⬜'
+    thumbnail: '⬜',
+    layouts: ['single', 'multi']
   },
   {
     id: 'blue-stripes',
     name: 'Blue Stripes',
-    thumbnail: '🟦'
+    thumbnail: '🟦',
+    layouts: ['multi']
   },
   {
     id: 'pink-wavy',
     name: 'Pink Wavy',
-    thumbnail: '🎀'
+    thumbnail: '🎀',
+    layouts: ['multi']
   },
   {
     id: 'orange-stitch',
     name: 'Orange Stitch',
-    thumbnail: '🟧'
+    thumbnail: '🟧',
+    layouts: ['multi']
   },
   {
     id: 'nature',
     name: 'Nature',
-    thumbnail: '🌿'
+    thumbnail: '🌿',
+    layouts: ['single']
   },
   {
     id: 'classic-white',
     name: 'Classic',
-    thumbnail: '🤍'
+    thumbnail: '🤍',
+    layouts: ['single', 'multi']
   },
   {
     id: 'polaroid',
     name: 'Polaroid',
-    thumbnail: '📸'
+    thumbnail: '📸',
+    layouts: ['single']
   },
   {
     id: 'vintage-gold',
     name: 'Vintage',
-    thumbnail: '✨'
+    thumbnail: '✨',
+    layouts: ['single']
   },
   {
     id: 'film-strip',
     name: 'Film',
-    thumbnail: '🎬'
+    thumbnail: '🎬',
+    layouts: ['multi']
   }
 ];
 

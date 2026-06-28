@@ -14,15 +14,17 @@ export function render() {
   const currentFrame = appState.selectedFrame ?? 0;
 
   const templateThumbs = templates
+    .map((tpl, originalIndex) => ({ tpl, originalIndex }))
+    .filter(item => item.tpl.layouts?.includes('single'))
     .map(
-      (tpl, i) => `
+      (item) => `
       <button
-        class="template-thumb ${i === currentFrame ? 'active' : ''}"
-        data-index="${i}"
-        aria-label="${tpl.name}"
+        class="template-thumb ${item.originalIndex === currentFrame ? 'active' : ''}"
+        data-index="${item.originalIndex}"
+        aria-label="${item.tpl.name}"
       >
-        <div class="thumb-preview">${getFrameSVG(i, 48, 72)}</div>
-        <span class="thumb-label">${tpl.name}</span>
+        <div class="thumb-preview">${getFrameSVG(item.originalIndex, 48, 72)}</div>
+        <span class="thumb-label">${item.tpl.name}</span>
       </button>`
     )
     .join('');
