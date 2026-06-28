@@ -49,9 +49,6 @@ export function render() {
       <!-- Submit -->
       <!-- Submit -->
       <div class="print-actions">
-        <button class="btn btn-secondary" id="btn-download" ${!previewSrc ? 'disabled' : ''}>
-          <span class="btn-icon">💾</span> Save Image
-        </button>
         <button class="btn btn-print" id="btn-print" ${!previewSrc ? 'disabled' : ''}>
           <span class="btn-print-label">🖨️ Print Now</span>
           <span class="btn-spinner hidden" id="btn-spinner"></span>
@@ -139,18 +136,6 @@ export function init() {
   printAnotherBtn?.addEventListener('click', () => {
     resetState();
     window.location.hash = '#home';
-  });
-
-  /* Download Image */
-  document.getElementById('btn-download')?.addEventListener('click', () => {
-    if (!appState.finalImage) return;
-    const a = document.createElement('a');
-    a.href = appState.finalImage;
-    a.download = `photo-${Date.now()}.png`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    showToast('Image saved successfully!');
   });
 
   /* ── Helpers ── */
